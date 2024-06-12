@@ -1,59 +1,225 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useState } from "react";
+import "react-native-reanimated";
+import { Drawer } from "expo-router/drawer";
 
-import { useColorScheme } from '@/components/useColorScheme';
+import { Image, SafeAreaView, View } from "react-native";
+import { Stack } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
+	// Catch any errors thrown by the Layout component.
+	ErrorBoundary,
+} from "expo-router";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
+	const [loaded, error] = useFonts({
+		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+		...FontAwesome.font,
+	});
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+	// Expo Router uses Error Boundaries to catch errors in the navigation tree.
+	useEffect(() => {
+		if (error) throw error;
+	}, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+	useEffect(() => {
+		if (loaded) {
+			SplashScreen.hideAsync();
+		}
+	}, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+	if (!loaded) {
+		return null;
+	}
 
-  return <RootLayoutNav />;
+	return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
-  );
+	return (
+		<>
+			<GestureHandlerRootView style={{ flex: 1 }}>
+				<Drawer
+					screenOptions={{
+						drawerPosition: "left",
+						drawerType: "front",
+						drawerStyle: {
+							backgroundColor: "white", // #021520
+							width: 250,
+						},
+						headerShown: true,
+						drawerInactiveTintColor: "#021520",
+						drawerLabelStyle: {
+							color: "black",
+						},
+					}}
+					// drawerContent={() => (
+					// 	<SafeAreaView>
+					// 		<View
+					// 			style={{
+					// 				height: 200,
+					// 				width: "100%",
+					// 				justifyContent: "center",
+					// 				alignItems: "center",
+					// 				backgroundColor: "center",
+					// 				paddingBottom: 12,
+					// 			}}
+					// 		>
+					// 			<Image
+					// 				source={require("@/assets/images/favicon.png")}
+					// 				resizeMode="contain"
+					// 				style={{
+					// 					width: 24,
+					// 					height: 24,
+					// 					tintColor: "white",
+					//                     backgroundColor: "black"
+					// 				}}
+					// 			/>
+					// 		</View>
+					// 	</SafeAreaView>
+					// )}
+				>
+					<Drawer.Screen
+						name="index"
+						options={{
+							drawerLabel: "Home",
+							drawerIcon: () => (
+								<Image
+									source={require("@/assets/images/favicon.png")}
+									resizeMode="contain"
+									style={{
+										width: 24,
+										height: 24,
+										tintColor: "white",
+										backgroundColor: "black",
+										padding: "auto",
+									}}
+								/>
+							),
+						}}
+					/>
+					<Drawer.Screen
+						name="decks"
+						options={{
+							drawerLabel: "Decks",
+							drawerIcon: () => (
+								<Image
+									source={require("@/assets/images/favicon.png")}
+									resizeMode="contain"
+									style={{
+										width: 24,
+										height: 24,
+										tintColor: "white",
+										backgroundColor: "black",
+										padding: "auto",
+									}}
+								/>
+							),
+						}}
+					/>
+					<Drawer.Screen
+						name="browser"
+						options={{
+							drawerLabel: "Card Browser",
+							drawerIcon: () => (
+								<Image
+									source={require("@/assets/images/favicon.png")}
+									resizeMode="contain"
+									style={{
+										width: 24,
+										height: 24,
+										tintColor: "white",
+										backgroundColor: "black",
+										padding: "auto",
+									}}
+								/>
+							),
+						}}
+					/>
+					<Drawer.Screen
+						name="statistics"
+						options={{
+							drawerLabel: "Statistics",
+							drawerIcon: () => (
+								<Image
+									source={require("@/assets/images/favicon.png")}
+									resizeMode="contain"
+									style={{
+										width: 24,
+										height: 24,
+										tintColor: "white",
+									}}
+								/>
+							),
+						}}
+					/>
+					<Drawer.Screen
+						name="settings"
+						options={{
+							drawerLabel: "Settings",
+							drawerIcon: () => (
+								<Image
+									source={require("@/assets/images/favicon.png")}
+									resizeMode="contain"
+									style={{
+										width: 24,
+										height: 24,
+										tintColor: "white",
+										backgroundColor: "black",
+										padding: "auto",
+									}}
+								/>
+							),
+						}}
+					/>
+					<Drawer.Screen
+						name="help"
+						options={{
+							drawerLabel: "Help Desk",
+							drawerIcon: () => (
+								<Image
+									source={require("@/assets/images/favicon.png")}
+									resizeMode="contain"
+									style={{
+										width: 24,
+										height: 24,
+										tintColor: "white",
+										backgroundColor: "black",
+										padding: "auto",
+									}}
+								/>
+							),
+						}}
+					/>
+					<Drawer.Screen
+						name="support"
+						options={{
+							drawerLabel: "Support Anki Decks - React",
+							drawerIcon: () => (
+								<Image
+									source={require("@/assets/images/favicon.png")}
+									resizeMode="contain"
+									style={{
+										width: 24,
+										height: 24,
+										tintColor: "white",
+										backgroundColor: "black",
+										padding: "auto",
+									}}
+								/>
+							),
+						}}
+					/>
+				</Drawer>
+			</GestureHandlerRootView>
+		</>
+	);
 }
