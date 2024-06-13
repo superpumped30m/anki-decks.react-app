@@ -61,74 +61,11 @@ function RootLayoutNav() {
 							color: "black",
 						},
 					}}
-					// drawerContent={() => (
-					// 	<SafeAreaView>
-					// 		<View
-					// 			style={{
-					// 				height: 200,
-					// 				width: "100%",
-					// 				justifyContent: "center",
-					// 				alignItems: "center",
-					// 				backgroundColor: "center",
-					// 				paddingBottom: 12,
-					// 			}}
-					// 		>
-					// 			<Image
-					// 				source={require("@/assets/images/favicon.png")}
-					// 				resizeMode="contain"
-					// 				style={{
-					// 					width: 24,
-					// 					height: 24,
-					// 					tintColor: "white",
-					//                     backgroundColor: "black"
-					// 				}}
-					// 			/>
-					// 		</View>
-					// 	</SafeAreaView>
-					// )}
 				>
 					<Drawer.Screen
 						name="index"
 						options={{
-							drawerLabel: "Home",
-							drawerIcon: () => (
-								<Image
-									source={require("@/assets/images/favicon.png")}
-									resizeMode="contain"
-									style={{
-										width: 24,
-										height: 24,
-										tintColor: "white",
-										backgroundColor: "black",
-										padding: "auto",
-									}}
-								/>
-							),
-						}}
-					/>
-					<Drawer.Screen
-						name="decks"
-						options={{
 							drawerLabel: "Decks",
-							drawerIcon: () => (
-								<Image
-									source={require("@/assets/images/favicon.png")}
-									resizeMode="contain"
-									style={{
-										width: 24,
-										height: 24,
-										tintColor: "white",
-										backgroundColor: "black",
-										padding: "auto",
-									}}
-								/>
-							),
-						}}
-					/>
-					<Drawer.Screen
-						name="browser"
-						options={{
-							drawerLabel: "Card Browser",
 							drawerIcon: () => (
 								<Image
 									source={require("@/assets/images/favicon.png")}
@@ -165,44 +102,6 @@ function RootLayoutNav() {
 						name="settings"
 						options={{
 							drawerLabel: "Settings",
-							drawerIcon: () => (
-								<Image
-									source={require("@/assets/images/favicon.png")}
-									resizeMode="contain"
-									style={{
-										width: 24,
-										height: 24,
-										tintColor: "white",
-										backgroundColor: "black",
-										padding: "auto",
-									}}
-								/>
-							),
-						}}
-					/>
-					<Drawer.Screen
-						name="help"
-						options={{
-							drawerLabel: "Help Desk",
-							drawerIcon: () => (
-								<Image
-									source={require("@/assets/images/favicon.png")}
-									resizeMode="contain"
-									style={{
-										width: 24,
-										height: 24,
-										tintColor: "white",
-										backgroundColor: "black",
-										padding: "auto",
-									}}
-								/>
-							),
-						}}
-					/>
-					<Drawer.Screen
-						name="support"
-						options={{
-							drawerLabel: "Support Anki Decks - React",
 							drawerIcon: () => (
 								<Image
 									source={require("@/assets/images/favicon.png")}
