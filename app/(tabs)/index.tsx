@@ -1,40 +1,70 @@
-import { StyleSheet } from "react-native";
-
+import {
+	SafeAreaView,
+	View,
+	FlatList,
+	StyleSheet,
+	Text,
+	StatusBar,
+} from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
 import FloatingMenu from "@/components/ui/floating-menu";
 
+const DATA = [
+	{
+		id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+		title: "First Item",
+	},
+	{
+		id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+		title: "Second Item",
+	},
+	{
+		id: "58694a0f-3da1-471f-bd96-145571e29d72",
+		title: "Third Item",
+	},
+];
+
+type ItemProps = { title: string };
+const Item = ({ title }: ItemProps) => (
+	<View style={styles.item}>
+		<Text style={styles.title}>{title}</Text>
+	</View>
+);
 export default function TabOneScreen() {
 	return (
-		<View style={styles.container}>
-			<View>
-				<Text style={styles.title}>Tab One</Text>
-				<View
-					style={styles.separator}
-					lightColor="#eee"
-					darkColor="rgba(255,255,255,0.1)"
-				/>
-				<EditScreenInfo path="app/(tabs)/index.tsx" />
-			</View>
-			<Text style={styles.title}>No Decks Available</Text>
-            <FloatingMenu />
-		</View>
+		<SafeAreaView style={styles.container}>
+			<FlatList
+				data={DATA}
+				renderItem={({ item }) => <Item title={item.title} />}
+				keyExtractor={(item) => item.id}
+			/>
+			<Text style={[styles.title, { alignSelf: "center" }]}>
+				No Decks Available
+			</Text>
+			<FloatingMenu />
+		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: "center",
-		justifyContent: "space-between",
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
+		paddingBottom: StatusBar.currentHeight || 0,
 	},
 	separator: {
 		marginVertical: 30,
 		height: 1,
 		width: "80%",
+	},
+	item: {
+		backgroundColor: "lightgray",
+		padding: 15,
+		marginVertical: 1,
+		marginHorizontal: 4,
+		textAlign: "center",
+	},
+	title: {
+		fontSize: 18,
+		fontWeight: "bold",
 	},
 });
