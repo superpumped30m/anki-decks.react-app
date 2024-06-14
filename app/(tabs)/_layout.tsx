@@ -46,13 +46,14 @@ export default function TabLayout() {
 							</Pressable>
 						</Link>
 					),
+					presentation: "modal",
 				}}
 			/>
 			<Stack.Screen
-				name="two"
+				name="modal"
 				options={{
-					title: "Tab Two",
-					tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+					// Set the presentation mode to modal for our modal route.
+					presentation: "modal",
 				}}
 			/>
 		</Stack>

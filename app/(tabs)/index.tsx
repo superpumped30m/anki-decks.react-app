@@ -5,9 +5,13 @@ import {
 	StyleSheet,
 	Text,
 	StatusBar,
+	Pressable,
 } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import FloatingMenu from "@/components/ui/floating-menu";
+import DeckModal from "@/components/ui/deck-modal";
+import { useState } from "react";
+import { Link } from "expo-router";
 
 const DATA = [
 	{
@@ -31,6 +35,7 @@ const Item = ({ title }: ItemProps) => (
 	</View>
 );
 export default function TabOneScreen() {
+	const [modalVisible, setModalVisible] = useState(false);
 	return (
 		<SafeAreaView style={styles.container}>
 			<FlatList
@@ -38,10 +43,15 @@ export default function TabOneScreen() {
 				renderItem={({ item }) => <Item title={item.title} />}
 				keyExtractor={(item) => item.id}
 			/>
+			{/* <Link href="/modal">Present modal</Link> */}
 			<Text style={[styles.title, { alignSelf: "center" }]}>
 				No Decks Available
 			</Text>
 			<FloatingMenu />
+			{/* <DeckModal
+				modalVisible={modalVisible}
+				setModalVisible={setModalVisible}
+			/> */}
 		</SafeAreaView>
 	);
 }
