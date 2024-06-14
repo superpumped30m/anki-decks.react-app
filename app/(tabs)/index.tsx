@@ -6,12 +6,11 @@ import {
 	Text,
 	StatusBar,
 	Pressable,
+	Modal,
 } from "react-native";
-import EditScreenInfo from "@/components/EditScreenInfo";
 import FloatingMenu from "@/components/ui/floating-menu";
-import DeckModal from "@/components/ui/deck-modal";
 import { useState } from "react";
-import { Link } from "expo-router";
+import DeckModalForm from "./modal";
 
 const DATA = [
 	{
@@ -44,6 +43,7 @@ export default function TabOneScreen() {
 				keyExtractor={(item) => item.id}
 			/>
 			{/* <Link href="/modal">Present modal</Link> */}
+			<DeckModalForm />
 			<Text style={[styles.title, { alignSelf: "center" }]}>
 				No Decks Available
 			</Text>
@@ -76,5 +76,14 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 18,
 		fontWeight: "bold",
+	},
+	button: {
+		borderRadius: 14,
+		paddingVertical: 15,
+		textAlign: "center",
+		// justifyContent: "center",
+	},
+	buttonText: {
+		textAlign: "center",
 	},
 });
