@@ -6,14 +6,16 @@ import {
 	TextInput,
 	View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function DeckModalForm() {
 	const [text, onChangeText] = React.useState("Useless Text");
 	const [number, onChangeNumber] = React.useState("");
+	const [visible, setVisible] = useState(false);
 	return (
-		<Modal visible transparent>
+		<Modal visible={visible} transparent>
 			<View
 				style={{
 					flex: 1,
@@ -30,15 +32,37 @@ export default function DeckModalForm() {
 						borderRadius: 20,
 					}}
 				>
-					<Text
+					<View
 						style={{
-							fontSize: 18,
-							fontWeight: "600",
-							marginBottom: 12,
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "space-between",
+							alignItems: "center",
+							marginBottom: 10,
 						}}
 					>
-						Create Deck
-					</Text>
+						<Text
+							style={{
+								fontSize: 18,
+								fontWeight: "600",
+								marginBottom: 12,
+							}}
+						>
+							Create Deck
+						</Text>
+						<TouchableOpacity
+							style={{
+								width: "auto",
+								height: "auto",
+							}}
+							onPress={() => {
+								setVisible(false);
+								console.log("visible", visible);
+							}}
+						>
+							<Ionicons size={35} name="close-circle-outline" color="red" />
+						</TouchableOpacity>
+					</View>
 					<TextInput
 						style={styles.input}
 						onChangeText={onChangeNumber}
