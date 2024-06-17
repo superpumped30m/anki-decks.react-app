@@ -8,14 +8,11 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 
-type CardResponseNavigatorProps = {
+type AnswerButtonProps = {
 	showAnswer?: boolean;
 	setShowAnswer: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const CardResponseNavigator = ({
-	setShowAnswer,
-	showAnswer,
-}: CardResponseNavigatorProps) => {
+const AnswerButton = ({ setShowAnswer, showAnswer }: AnswerButtonProps) => {
 	const handleUserAnswer = () => {
 		setShowAnswer(true);
 		console.log("show answer");
@@ -28,6 +25,52 @@ const CardResponseNavigator = ({
 		</View>
 	);
 };
+
+const ResponseButton = () => {
+	const handleUserResponse = () => {
+		console.log("show answer");
+	};
+	return (
+		<View style={styles.responseButtonContainer}>
+			<View style={[styles.responseButtonView]}>
+				<Text style={styles.responseButtonText}>A</Text>
+			</View>
+			<View style={styles.responseButtonView}>
+				<Text style={styles.responseButtonText}>B</Text>
+			</View>
+			<View style={styles.responseButtonView}>
+				<Text style={styles.responseButtonText}>C</Text>
+			</View>
+			<View style={styles.responseButtonView}>
+				<Text style={styles.responseButtonText}>D</Text>
+			</View>
+		</View>
+	);
+};
+
+export default function CardScreen() {
+	const [showAnswer, setShowAnswer] = useState<boolean>(false);
+	return (
+		<View style={styles.container}>
+			<View style={{}}>
+				<Text style={styles.title}>What does MERN Stack stand for ?</Text>
+				<View
+					style={[
+						styles.separator,
+						{ borderColor: "black", backgroundColor: "gray" },
+					]}
+				/>
+
+				{showAnswer ? <AnswerSheet /> : <View></View>}
+			</View>
+
+			<View style={{ width: "auto" }}>
+				<ResponseButton />
+				<AnswerButton setShowAnswer={setShowAnswer} />
+			</View>
+		</View>
+	);
+}
 
 const AnswerSheet = () => {
 	return (
@@ -45,27 +88,6 @@ const AnswerSheet = () => {
 		</View>
 	);
 };
-
-export default function CardScreen() {
-	const [showAnswer, setShowAnswer] = useState<boolean>(false);
-	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>What does MERN Stack stand for ?</Text>
-			<View
-				style={[
-					styles.separator,
-					{ borderColor: "black", backgroundColor: "gray" },
-				]}
-			/>
-			{showAnswer ? <AnswerSheet /> : <View></View>}
-			{showAnswer ? (
-				<Text style={styles.title}>provide response</Text>
-			) : (
-				<CardResponseNavigator setShowAnswer={setShowAnswer} />
-			)}
-		</View>
-	);
-}
 
 const styles = StyleSheet.create({
 	container: {
@@ -99,6 +121,27 @@ const styles = StyleSheet.create({
 		// justifyContent: "center",
 	},
 	buttonText: {
+		textAlign: "center",
+	},
+	responseButtonContainer: {
+		width: "100%",
+		height: 60,
+		borderColor: "black",
+		display: "flex",
+		flexDirection: "row",
+		gap: 5,
+		alignItems: "center",
+		justifyContent: "space-evenly",
+	},
+	responseButtonView: {
+		width: "20%",
+		height: "auto",
+		borderLeftWidth: 1,
+		borderRightWidth: 1,
+	},
+	responseButtonText: {
+		fontSize: 25,
+		fontWeight: "semibold",
 		textAlign: "center",
 	},
 });
