@@ -11,6 +11,7 @@ import {
 import FloatingMenu from "@/components/ui/floating-menu";
 import { useState } from "react";
 import DeckModalForm from "./modal";
+import { Link } from "expo-router";
 
 const DATA = [
 	{
@@ -42,16 +43,12 @@ export default function TabOneScreen() {
 				renderItem={({ item }) => <Item title={item.title} />}
 				keyExtractor={(item) => item.id}
 			/>
-			{/* <Link href="/modal">Present modal</Link> */}
-			<DeckModalForm />
+			<Link href="/(deck)/card">Present modal</Link>
 			<Text style={[styles.title, { alignSelf: "center" }]}>
 				No Decks Available
 			</Text>
+			<DeckModalForm />
 			<FloatingMenu />
-			{/* <DeckModal
-				modalVisible={modalVisible}
-				setModalVisible={setModalVisible}
-			/> */}
 		</SafeAreaView>
 	);
 }
