@@ -8,18 +8,22 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 
-const CardResponseNavigator = () => {
+type CardResponseNavigatorProps = {
+	showAnswer?: boolean;
+	setShowAnswer: React.Dispatch<React.SetStateAction<boolean>>;
+};
+const CardResponseNavigator = ({
+	setShowAnswer,
+	showAnswer,
+}: CardResponseNavigatorProps) => {
 	const handleUserAnswer = () => {
+		setShowAnswer(true);
 		console.log("show answer");
 	};
 	return (
 		<View>
-			<Pressable
-				onPress={() => {
-					handleUserAnswer();
-				}}
-			>
-				<Button title="Show Answer" />
+			<Pressable>
+				<Button onPress={() => handleUserAnswer()} title="Show Answer" />
 			</Pressable>
 		</View>
 	);
@@ -41,8 +45,9 @@ const AnswerSheet = () => {
 		</View>
 	);
 };
+
 export default function CardScreen() {
-	const [showAnswer, setShowAnswer] = useState<boolean>(true);
+	const [showAnswer, setShowAnswer] = useState<boolean>(false);
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>What does MERN Stack stand for ?</Text>
@@ -54,9 +59,9 @@ export default function CardScreen() {
 			/>
 			{showAnswer ? <AnswerSheet /> : <View></View>}
 			{showAnswer ? (
-				<CardResponseNavigator />
-			) : (
 				<Text style={styles.title}>provide response</Text>
+			) : (
+				<CardResponseNavigator setShowAnswer={setShowAnswer} />
 			)}
 		</View>
 	);
