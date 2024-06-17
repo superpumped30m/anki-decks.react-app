@@ -49,7 +49,7 @@ const ResponseButton = () => {
 };
 
 export default function CardScreen() {
-	const [showAnswer, setShowAnswer] = useState<boolean>(false);
+	const [showAnswer, setShowAnswer] = useState<boolean>(true);
 	return (
 		<View style={styles.container}>
 			<View style={{}}>

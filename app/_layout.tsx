@@ -1,8 +1,8 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
-import { Pressable } from "react-native";
+import { Link, Stack, router } from "expo-router";
+import { Pressable, TouchableOpacity } from "react-native";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme.web";
 
@@ -44,7 +44,7 @@ export default function Layout() {
 				<Drawer.Screen
 					name="(deck)/card/index" // This is the name of the page and must match the url from root
 					options={{
-						drawerLabel: "Settings",
+						drawerLabel: "Card",
 						title: "Settings",
 						drawerIcon: ({ size, color }) => (
 							<Ionicons
@@ -67,6 +67,44 @@ export default function Layout() {
 									)}
 								</Pressable>
 							</Link>
+						),
+					}}
+				/>
+
+				<Stack.Screen
+					name="(modals)/set/[id]"
+					options={{
+						presentation: "modal",
+						title: "",
+						headerLeft: () => (
+							<TouchableOpacity onPress={() => router.back()}>
+								<Ionicons name="close-outline" size={24} color="#fff" />
+							</TouchableOpacity>
+						),
+					}}
+				/>
+				<Stack.Screen
+					name="(modals)/set/create"
+					options={{
+						presentation: "modal",
+						title: "Create Card Set",
+						headerLeft: () => (
+							<TouchableOpacity onPress={() => router.back()}>
+								<Ionicons name="close-outline" size={24} color="#fff" />
+							</TouchableOpacity>
+						),
+					}}
+				/>
+
+				<Stack.Screen
+					name="(modals)/(cards)/[id]"
+					options={{
+						presentation: "modal",
+						title: "Update Set Cards",
+						headerLeft: () => (
+							<TouchableOpacity onPress={() => router.back()}>
+								<Ionicons name="close-outline" size={24} color="#fff" />
+							</TouchableOpacity>
 						),
 					}}
 				/>
