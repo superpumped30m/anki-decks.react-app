@@ -1,7 +1,7 @@
 export interface Set {
 	cards: number;
 	description: string;
-	creator: string;
+	creator?: string;
 	id: string;
 	title: string;
 	image?: any;
@@ -35,6 +35,7 @@ export const APPLICATION_DATA = [
 				image: "https://avatars.githubusercontent.com/u/71868299?v=4",
 			},
 		],
+		isExpanded: false,
 	},
 	{
 		id: 2,
@@ -49,5 +50,6 @@ export const APPLICATION_DATA = [
 				image: "https://avatars.githubusercontent.com/u/71868299?v=4",
 			},
 		],
+		isExpanded: false,
 	},
 ];

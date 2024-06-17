@@ -14,6 +14,7 @@ import DeckModalForm from "./modal";
 import { Link } from "expo-router";
 import { APPLICATION_DATA } from "@/data";
 import ExpandableListView from "@/components/ui/expandable-list-view";
+import AccordianList from "@/components/ui/accordian-list";
 
 const DATA = [
 	{
@@ -48,7 +49,7 @@ export default function TabOneScreen() {
                 // }}
 				// keyExtractor={(item) => item.id}
 			/> */}
-			<ExpandableListView />
+			<AccordianList />
 			<Link href="/(deck)/card">Present modal</Link>
 			<Text style={[styles.title, { alignSelf: "center" }]}>
 				No Decks Available
