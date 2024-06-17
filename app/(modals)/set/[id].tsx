@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { addToFavorites, getSet, Set } from '@/data/api';
-import { defaultStyleSheet } from '../../../constants/Styles';
+import { defaultStyleSheet } from '@/constants/Styles';
 
 const Page = () => {
   const { id } = useLocalSearchParams<{ id: string }>();

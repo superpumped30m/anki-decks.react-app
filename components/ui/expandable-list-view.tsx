@@ -89,7 +89,7 @@ const ExpandableComponent = ({
 };
 
 export default function ExpandableListView() {
-	const [multiSelect, setMultiSelect] = useState<boolean>(false);
+	const [multiSelect, setMultiSelect] = useState<boolean>(true);
 	const [listDataSource, setListDataSource] = useState(CONTENT);
 	const updateLayout = (index: number) => {
 		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

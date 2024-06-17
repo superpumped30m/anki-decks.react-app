@@ -12,6 +12,8 @@ import FloatingMenu from "@/components/ui/floating-menu";
 import { useState } from "react";
 import DeckModalForm from "./modal";
 import { Link } from "expo-router";
+import { APPLICATION_DATA } from "@/data";
+import ExpandableListView from "@/components/ui/expandable-list-view";
 
 const DATA = [
 	{
@@ -38,11 +40,15 @@ export default function TabOneScreen() {
 	const [modalVisible, setModalVisible] = useState(false);
 	return (
 		<SafeAreaView style={styles.container}>
-			<FlatList
-				data={DATA}
+			{/* <FlatList
+				data={APPLICATION_DATA}
 				renderItem={({ item }) => <Item title={item.title} />}
-				keyExtractor={(item) => item.id}
-			/>
+                // keyExtractor={({id}) => {
+                //     return id;
+                // }}
+				// keyExtractor={(item) => item.id}
+			/> */}
+			<ExpandableListView />
 			<Link href="/(deck)/card">Present modal</Link>
 			<Text style={[styles.title, { alignSelf: "center" }]}>
 				No Decks Available
