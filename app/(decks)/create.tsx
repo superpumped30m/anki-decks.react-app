@@ -5,7 +5,7 @@ import {
 	TouchableOpacity,
 	Switch,
 	Image,
-    Alert
+	ToastAndroid,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -39,6 +39,10 @@ export default function CreateScreen() {
 
 	// Create set, add new favorite and go back
 	const onCreateSet = async () => {
+		if (!information.question || !information.answer) {
+			showValidationToast();
+			return;
+		}
 		AsyncStorage.setItem("SETS", JSON.stringify(information), () => {
 			console.log("data stored in local storage");
 		});
@@ -51,12 +55,20 @@ export default function CreateScreen() {
 		// router.back();
 		// Notify upon success & reset the Set Form.
 
+		showSuccessToast();
 		setInformation({
 			answer: "",
 			question: "",
 			favorite: false,
 			image: null as any,
 		});
+	};
+
+	const showValidationToast = () => {
+		ToastAndroid.show("Please fill required fields", ToastAndroid.SHORT);
+	};
+	const showSuccessToast = () => {
+		ToastAndroid.show("Set created Successfully", ToastAndroid.SHORT);
 	};
 	return (
 		<SafeAreaView style={styles.container}>
