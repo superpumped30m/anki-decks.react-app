@@ -18,8 +18,10 @@ export default function DeckModalForm({
 	visible,
 	setVisible,
 }: DeckModalFormProps) {
-	const [text, onChangeText] = React.useState("Useless Text");
 	const [number, onChangeNumber] = React.useState("");
+	const onModalClose = () => {
+		setVisible(false);
+	};
 	return (
 		<Modal visible={visible} transparent>
 			<View
@@ -60,13 +62,16 @@ export default function DeckModalForm({
 							style={{
 								width: "auto",
 								height: "auto",
+								backgroundColor: "green",
 							}}
-							onPress={() => {
-								setVisible(false);
-								console.log("visible", visible);
-							}}
+							onPress={onModalClose}
 						>
-							<Ionicons size={35} name="close-circle-outline" color="red" />
+							<Ionicons
+								size={35}
+								onPress={onModalClose}
+								name="close-circle-outline"
+								color="red"
+							/>
 						</TouchableOpacity>
 					</View>
 					<TextInput
@@ -76,18 +81,6 @@ export default function DeckModalForm({
 						placeholder="Enter Deck Name..."
 						keyboardType="numeric"
 					/>
-					{/* <Text
-						style={{
-							fontSize: 16,
-							lineHeight: 24,
-							// opacity: 0.7,
-						}}
-					>
-						Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-						Consectetur eius cupiditate quaerat a, fugiat assumenda quo quasi
-						laboriosam, repellendus repellat at deleniti quam aut quod! Ullam
-						facilis nobis magnam! Ex.
-					</Text> */}
 					<TouchableOpacity
 						style={[
 							styles.button,
