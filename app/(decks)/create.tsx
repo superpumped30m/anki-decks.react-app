@@ -14,14 +14,27 @@ import { defaultStyleSheet } from "@/constants/Styles";
 import { TextInput } from "react-native-gesture-handler";
 import { addToFavorites, createSet } from "@/data/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Dropdown } from "react-native-element-dropdown";
+import { Ionicons } from "@expo/vector-icons";
+import { APPLICATION_DATA } from "@/data";
 
+type InformationType = {
+	question: string;
+	answer: string;
+	deck: null | number;
+	favorite: boolean;
+	image: any;
+};
 export default function CreateScreen() {
-	const [information, setInformation] = useState({
+	const [information, setInformation] = useState<InformationType>({
 		question: "",
 		answer: "",
+		deck: null,
 		favorite: true,
 		image: null as any,
 	});
+	// const [value, setValue] = useState<any>(null);
+	const [isFocus, setIsFocus] = useState<boolean>(false);
 
 	const pickImage = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
@@ -39,17 +52,15 @@ export default function CreateScreen() {
 
 	// Create set, add new favorite and go back
 	const onCreateSet = async () => {
-		if (!information.question || !information.answer) {
+		if (!information.question || !information.answer || !information.deck) {
 			showValidationToast();
 			return;
 		}
-		AsyncStorage.setItem("SETS", JSON.stringify(information), () => {
-			console.log("data stored in local storage");
-		});
+		AsyncStorage.setItem("SETS", JSON.stringify(information));
 		// console.log(AsyncStorage.getItem("SETS"));
 		// const sets = await AsyncStorage.getItem("SETS");
 		// console.log("sets", sets)
-		console.log("SET Access KEY", await AsyncStorage.getAllKeys());
+		// console.log("SET Access KEY", await AsyncStorage.getAllKeys());
 		// const newSet = await createSet(information);
 		// await addToFavorites(newSet.id!);
 		// router.back();
@@ -59,6 +70,7 @@ export default function CreateScreen() {
 		setInformation({
 			answer: "",
 			question: "",
+			deck: null,
 			favorite: false,
 			image: null as any,
 		});
@@ -83,9 +95,9 @@ export default function CreateScreen() {
 					placeholder="Question..."
 					value={information.question}
 					onChangeText={(text) => {
-						console.log("text", text);
+						// console.log("text", text);
 						setInformation({ ...information, question: text });
-						console.log("information", information);
+						// console.log("information", information);
 					}}
 				/>
 				<TextInput
@@ -93,10 +105,45 @@ export default function CreateScreen() {
 					placeholder="Answer..."
 					value={information.answer}
 					onChangeText={(text) => {
-						console.log("text", text);
+						// console.log("text", text);
 						setInformation({ ...information, answer: text });
-						console.log("information", information);
+						// console.log("information", information);
 					}}
+				/>
+				<Dropdown
+					style={[
+						dropdownStyles.dropdown,
+						defaultStyleSheet.input,
+						isFocus && { borderColor: "blue" },
+					]}
+					placeholderStyle={dropdownStyles.placeholderStyle}
+					selectedTextStyle={dropdownStyles.selectedTextStyle}
+					inputSearchStyle={dropdownStyles.inputSearchStyle}
+					iconStyle={dropdownStyles.iconStyle}
+					data={APPLICATION_DATA}
+					search
+					maxHeight={300}
+					labelField="title"
+					valueField="id"
+					placeholder={!isFocus ? "Select Deck" : "..."}
+					searchPlaceholder="Search..."
+					value={information.deck?.toString()}
+					onFocus={() => setIsFocus(true)}
+					onBlur={() => setIsFocus(false)}
+					onChange={(item) => {
+						// console.log("selected item", item);
+						setInformation({ ...information, deck: item.id });
+						// setInformation(item.id);
+						setIsFocus(false);
+					}}
+					renderLeftIcon={() => (
+						<Ionicons
+							style={dropdownStyles.icon}
+							color={isFocus ? "blue" : "black"}
+							name="logo-dropbox"
+							size={20}
+						/>
+					)}
 				/>
 				<View
 					style={{
@@ -195,5 +242,45 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		fontWeight: "semibold",
 		textAlign: "center",
+	},
+});
+
+const dropdownStyles = StyleSheet.create({
+	container: {
+		backgroundColor: "white",
+		padding: 16,
+	},
+	dropdown: {
+		height: 50,
+		borderColor: "gray",
+		borderWidth: 0.5,
+		borderRadius: 8,
+		paddingHorizontal: 8,
+	},
+	icon: {
+		marginRight: 5,
+	},
+	label: {
+		position: "absolute",
+		backgroundColor: "white",
+		left: 22,
+		top: 8,
+		zIndex: 999,
+		paddingHorizontal: 8,
+		fontSize: 14,
+	},
+	placeholderStyle: {
+		fontSize: 16,
+	},
+	selectedTextStyle: {
+		fontSize: 16,
+	},
+	iconStyle: {
+		width: 20,
+		height: 20,
+	},
+	inputSearchStyle: {
+		height: 40,
+		fontSize: 16,
 	},
 });
