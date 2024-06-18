@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { FloatingMenu } from "react-native-floating-action-menu";
 import { ItemConfig } from "react-native-floating-action-menu/dist/src/types";
+import DeckModalForm from "./deck-modal-form";
 
 type ItemType = ItemConfig & { icon: string };
 
@@ -17,7 +18,7 @@ const items: ItemType[] = [
 	{
 		label: "Add Deck",
 		onPress: (item, index) => {
-			router.push("/add-deck");
+			router.push("/(root)/modal");
 		},
 		icon: "create-outline",
 	},
@@ -40,13 +41,17 @@ const renderItemIcon = (item: any, index: any, menuState: any) => {
 
 export default () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [visible, setVisible] = useState<boolean>(false);
 	return (
-		<FloatingMenu
-			renderItemIcon={renderItemIcon}
-			items={items}
-			isOpen={isMenuOpen}
-			onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
-			// onItemPress={({ label }, idx) => router.push(`/${label}`)}
-		/>
+		<>
+			<DeckModalForm visible={visible} setVisible={setVisible} />
+			<FloatingMenu
+				renderItemIcon={renderItemIcon}
+				items={items}
+				isOpen={isMenuOpen}
+				onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
+				// onItemPress={({ label }, idx) => router.push(`/${label}`)}
+			/>
+		</>
 	);
 };

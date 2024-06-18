@@ -38,6 +38,14 @@ export default function RootLayout() {
 						),
 					}}
 				/>
+				<Drawer.Screen
+					name="modal"
+					options={{
+						drawerItemStyle: { display: "none" },
+						drawerLabel: "Deck Card",
+						title: "Create Deck",
+					}}
+				/>
 			</Drawer>
 		</GestureHandlerRootView>
 	);
