@@ -42,11 +42,12 @@ export const defaultStyleSheet = StyleSheet.create({
 		textAlign: "center",
 	},
 	input: {
-		height: 40,
+		height: 50,
 		borderColor: Colors.darkGrey,
 		borderWidth: 1,
 		borderRadius: 8,
 		padding: 8,
+		paddingLeft: 20,
 		marginVertical: 4,
 	},
 });
