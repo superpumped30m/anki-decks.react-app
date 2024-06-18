@@ -11,41 +11,7 @@ import {
 import { useState, useEffect } from "react";
 import { APPLICATION_DATA } from "@/data";
 import { Ionicons } from "@expo/vector-icons";
-
-const CONTENT = [
-	{
-		isExpanded: false,
-		category_name: "Item 1",
-		subcategory: [
-			{ id: 1, value: "sub 1" },
-			{ id: 2, value: "sub 2" },
-		],
-	},
-	{
-		isExpanded: false,
-		category_name: "Item 2",
-		subcategory: [
-			{ id: 1, value: "sub 3" },
-			{ id: 2, value: "sub 4" },
-		],
-	},
-	{
-		isExpanded: false,
-		category_name: "Item 3",
-		subcategory: [
-			{ id: 1, value: "sub 5" },
-			{ id: 2, value: "sub 6" },
-		],
-	},
-	{
-		isExpanded: false,
-		category_name: "Item 4",
-		subcategory: [
-			{ id: 1, value: "sub 7" },
-			{ id: 2, value: "sub 8" },
-		],
-	},
-];
+import { Link } from "expo-router";
 
 interface ExpandableComponentProps {
 	id: number;
@@ -84,7 +50,11 @@ const ExpandableComponent = ({
 				) : (
 					<Ionicons name="chevron-forward-outline" size={20} color={"black"} />
 				)}
-				<Text style={styles.itemText}>{title}</Text>
+				<Link href="/(decks)" asChild>
+					<Text style={[styles.itemText, { backgroundColor: "green" }]}>
+						{title}
+					</Text>
+				</Link>
 			</TouchableOpacity>
 			<View style={styles.deckSeparator} />
 			<View style={{ height: layoutHeight, overflow: "hidden" }}>
@@ -111,7 +81,7 @@ export default function AccordianList() {
 	};
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<ScrollView >
+			<ScrollView>
 				{listDataSource.map((item, idx) => (
 					<ExpandableComponent
 						{...item}
