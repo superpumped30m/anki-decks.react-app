@@ -1,21 +1,21 @@
-export interface Set {
-	cards: number;
-	description: string;
-	creator?: string;
-	id: string;
+export type DeckType = {
+	id: number;
 	title: string;
-	image?: any;
-}
+	description: string;
+	isExpanded: boolean;
+	sets: SetType[];
+	childrens: DeckType[];
+};
 
-export interface Card {
-	answer: string;
-	id: string;
+export type SetType = {
+	id: number;
 	question: string;
-	image?: any;
-	set: string;
-}
+	answer: string;
+	image: string;
+	isFavorite: boolean;
+}[];
 
-export const DECKS_DATA = [
+export const DECKS_DATA: DeckType[] = [
 	{
 		id: 1,
 		title: "React Native",
@@ -39,6 +39,7 @@ export const DECKS_DATA = [
 				isFavorite: true,
 			},
 		],
+		isExpanded: false,
 	},
 	{
 		id: 2,
@@ -86,6 +87,7 @@ export const DECKS_DATA = [
 						isFavorite: true,
 					},
 				],
+				isExpanded: false,
 			},
 			{
 				id: 2,
@@ -129,6 +131,7 @@ export const DECKS_DATA = [
 						isFavorite: true,
 					},
 				],
+				isExpanded: false,
 			},
 		],
 		sets: [
@@ -165,6 +168,7 @@ export const DECKS_DATA = [
 				isFavorite: true,
 			},
 		],
+		isExpanded: false,
 	},
 	{
 		id: 3,
@@ -181,6 +185,7 @@ export const DECKS_DATA = [
 				isFavorite: true,
 			},
 		],
+		isExpanded: false,
 	},
 ];
 
