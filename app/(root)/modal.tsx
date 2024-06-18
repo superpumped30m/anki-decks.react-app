@@ -63,7 +63,7 @@ export default function DeckModalForm() {
 								style={{
 									width: "auto",
 									height: "auto",
-									backgroundColor: "green",
+									// backgroundColor: "green",
 								}}
 								onPress={onModalClose}
 							>

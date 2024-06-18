@@ -11,7 +11,7 @@ export default function IndexScreen() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<AccordianList />
-			<Link href="/(deck)/card">Present modal</Link>
+			{/* <Link href="/(deck)/card">Present modal</Link>
 			<Text
 				style={[
 					styles.title,
@@ -19,7 +19,7 @@ export default function IndexScreen() {
 				]}
 			>
 				No Decks Available
-			</Text>
+			</Text> */}
 			
 			<FloatingMenu />
 		</SafeAreaView>
