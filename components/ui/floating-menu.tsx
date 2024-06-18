@@ -10,7 +10,7 @@ const items: ItemType[] = [
 	{
 		label: "Add",
 		onPress: (item, index) => {
-			router.push("/add-deck");
+			router.push("/(deck)/create");
 		},
 		icon: "add-outline",
 	},

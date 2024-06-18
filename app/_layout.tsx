@@ -41,7 +41,7 @@ export default function Layout() {
 						),
 					}}
 				/>
-				<Drawer.Screen
+				{/* <Drawer.Screen
 					name="(deck)/card/index" // This is the name of the page and must match the url from root
 					options={{
 						drawerLabel: "Card",
@@ -107,7 +107,7 @@ export default function Layout() {
 							</TouchableOpacity>
 						),
 					}}
-				/>
+				/> */}
 			</Drawer>
 		</GestureHandlerRootView>
 	);

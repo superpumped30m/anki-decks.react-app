@@ -41,14 +41,7 @@ export default function TabOneScreen() {
 	const [modalVisible, setModalVisible] = useState(false);
 	return (
 		<SafeAreaView style={styles.container}>
-			{/* <FlatList
-				data={APPLICATION_DATA}
-				renderItem={({ item }) => <Item title={item.title} />}
-                // keyExtractor={({id}) => {
-                //     return id;
-                // }}
-				// keyExtractor={(item) => item.id}
-			/> */}
+			
 			<AccordianList />
 			<Link href="/(deck)/card">Present modal</Link>
 			<Text style={[styles.title, { alignSelf: "center" }]}>
