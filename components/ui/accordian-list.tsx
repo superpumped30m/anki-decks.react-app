@@ -111,7 +111,7 @@ export default function AccordianList() {
 	};
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<ScrollView style={{ paddingVertical: 10 }}>
+			<ScrollView >
 				{listDataSource.map((item, idx) => (
 					<ExpandableComponent
 						{...item}
