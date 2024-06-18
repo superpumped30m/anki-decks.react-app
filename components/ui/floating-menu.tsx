@@ -11,7 +11,7 @@ const items: ItemType[] = [
 	{
 		label: "Add",
 		onPress: (item, index) => {
-			router.push("/(deck)/create");
+			router.push("/(decks)/create");
 		},
 		icon: "add-outline",
 	},
@@ -26,6 +26,13 @@ const items: ItemType[] = [
 		label: "Create Filtered Deck",
 		onPress: (item, index) => {
 			router.push("/create-filtered-deck");
+		},
+		icon: "filter-sharp",
+	},
+	{
+		label: "View Card",
+		onPress: (item, index) => {
+			router.push("/(decks)");
 		},
 		icon: "caret-down-circle-outline",
 	},
