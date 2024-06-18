@@ -53,11 +53,16 @@ export default () => {
 		<>
 			<DeckModalForm visible={visible} setVisible={setVisible} />
 			<FloatingMenu
+				position="bottom-right"
+				openEase={() => {}}
+				closeEase={() => {}}
+				primaryColor="black"
 				renderItemIcon={renderItemIcon}
 				items={items}
 				isOpen={isMenuOpen}
 				onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
 				// onItemPress={({ label }, idx) => router.push(`/${label}`)}
+				renderMenuIcon={() => <Ionicons name="add-sharp" size={30} />}
 			/>
 		</>
 	);
