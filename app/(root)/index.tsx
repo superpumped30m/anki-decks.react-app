@@ -1,14 +1,12 @@
 import { StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AccordianList from "@/components/ui/accordian-list";
 import FloatingMenu from "@/components/ui/floating-menu";
 import DecksList from "@/components/ui/decks-list";
 
 export default function IndexScreen() {
 	return (
 		<SafeAreaView style={styles.container}>
-			<AccordianList />
 			<DecksList />
 			<FloatingMenu />
 		</SafeAreaView>
