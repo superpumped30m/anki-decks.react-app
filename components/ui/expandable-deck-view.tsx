@@ -26,7 +26,6 @@ const ExpandableDeckView = ({
 					id: id,
 				},
 			});
-			console.log("navigated to study");
 		} else {
 			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 			dispatch(toggleDeckExpand(id));
