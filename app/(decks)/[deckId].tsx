@@ -1,20 +1,23 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { RouteProp } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
+// import { StackNavigationProp } from "@react-navigation/stack";
 import { DeckType } from "@/data";
+import { useLocalSearchParams } from "expo-router";
 
 type StudyScreenProps = {
-	route: RouteProp<{ params: { deck: DeckType } }, "params">;
-	navigation: StackNavigationProp<any, any>;
+	route: RouteProp<{ params: { id: DeckType } }, "params">;
+	// navigation: StackNavigationProp<any, any>;
 };
 
-const StudyScreen = ({ route }: StudyScreenProps) => {
-	const { deck } = route.params;
+const StudyScreen = ({ segment }: any) => {
+	const { id } = useLocalSearchParams();
+	console.log("route", id);
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>{deck.title}</Text>
+			<Text style={styles.title}>Deck Study</Text>
+			{/* <Text style={styles.title}>{deck.title}</Text>
 			<FlatList
 				data={deck.sets}
 				keyExtractor={(item) => item.id.toString()}
@@ -24,7 +27,7 @@ const StudyScreen = ({ route }: StudyScreenProps) => {
 						<Text style={styles.answer}>{item.answer}</Text>
 					</View>
 				)}
-			/>
+			/> */}
 		</View>
 	);
 };

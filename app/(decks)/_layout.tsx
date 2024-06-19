@@ -24,6 +24,9 @@ const _layout = () => {
 						},
 					}}
 				/>
+                {/* <Stack.Screen name="study" options={{
+                    
+                }} /> */}
 			</Stack>
 		</GestureHandlerRootView>
 	);

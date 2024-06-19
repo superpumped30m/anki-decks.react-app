@@ -5,6 +5,7 @@ import { LayoutAnimation, Pressable, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppDispatch } from "@/store/hooks";
 import { toggleDeckExpand } from "@/store/deckSlice";
+import { router } from "expo-router";
 
 const ExpandableDeckView = ({
 	id,
@@ -16,10 +17,15 @@ const ExpandableDeckView = ({
 	const dispatch = useAppDispatch();
 	const hasChildren = childrens && childrens.length > 0;
 
-	const handlePress = () => {
+	const handlePress = (id?: number) => {
 		if (sets.length > 0) {
 			// navigation.navigate("StudyScreen", { deckId: id });
-			// router.push("/(decks)/study");
+			router.navigate({
+				pathname: "/(decks)/[deckId]",
+				params: {
+					id: id,
+				},
+			});
 			console.log("navigated to study");
 		} else {
 			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -59,7 +65,7 @@ const ExpandableDeckView = ({
 					style={{
 						paddingVertical: 20,
 					}}
-					onPress={handlePress}
+					onPress={() => handlePress(id)}
 				>
 					<Text style={styles.itemText}>{title}</Text>
 				</Pressable>
