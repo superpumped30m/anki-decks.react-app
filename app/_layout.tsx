@@ -1,12 +1,16 @@
+import { store } from "@/store";
 import { Stack } from "expo-router";
+import { Provider } from "react-redux";
 
 const RootLayout = () => {
 	return (
-		<Stack
-			screenOptions={{
-				headerShown: false,
-			}}
-		/>
+		<Provider store={store}>
+			<Stack
+				screenOptions={{
+					headerShown: false,
+				}}
+			/>
+		</Provider>
 	);
 };
 
