@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 type DeckModalFormProps = {
 	visible: boolean;
@@ -20,7 +21,8 @@ export default function DeckModalForm({
 }: DeckModalFormProps) {
 	const [number, onChangeNumber] = React.useState("");
 	const onModalClose = () => {
-		setVisible(false);
+        router.dismiss()
+		// setVisible(false);
 	};
 	return (
 		<Modal visible={visible} transparent>

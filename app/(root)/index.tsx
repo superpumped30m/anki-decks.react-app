@@ -1,13 +1,10 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AccordianList from "@/components/ui/accordian-list";
-import { Link } from "expo-router";
-import DeckModalForm from "../(tabs)/modal";
 import FloatingMenu from "@/components/ui/floating-menu";
 
 export default function IndexScreen() {
-	
 	return (
 		<SafeAreaView style={styles.container}>
 			<AccordianList />
@@ -20,7 +17,7 @@ export default function IndexScreen() {
 			>
 				No Decks Available
 			</Text> */}
-			
+
 			<FloatingMenu />
 		</SafeAreaView>
 	);

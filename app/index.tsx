@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Redirect } from "expo-router";
+import { Provider } from "react-redux";
+import { store } from "@/store";
 
-export default function index() {
-	return <Redirect href="(root)" />;
-}
-
-const styles = StyleSheet.create({});
+export default () => {
+	return (
+		<Provider store={store}>
+			<Redirect href="(root)" />
+		</Provider>
+	);
+};
