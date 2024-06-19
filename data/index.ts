@@ -1,3 +1,11 @@
+export type SetType = {
+	id: number;
+	question: string;
+	answer: string;
+	image: string;
+	isFavorite: boolean;
+}[];
+
 export type DeckType = {
 	id: number;
 	title: string;
@@ -7,21 +15,13 @@ export type DeckType = {
 	childrens: DeckType[];
 };
 
-export type SetType = {
-	id: number;
-	question: string;
-	answer: string;
-	image: string;
-	isFavorite: boolean;
-}[];
-
 export const DECKS_DATA: DeckType[] = [
 	{
 		id: 1,
 		title: "React Native",
 		description:
 			"This is a javascript library used to build hybrid mobile apps.",
-		children: [],
+		childrens: [],
 		sets: [
 			{
 				id: 1,
@@ -45,12 +45,12 @@ export const DECKS_DATA: DeckType[] = [
 		id: 2,
 		title: "Computer Science",
 		description: "This is related to computer science.",
-		children: [
+		childrens: [
 			{
 				id: 1,
 				title: "Data Structures & Algorithms",
 				description: "This is related to computer science.",
-				children: [],
+				childrens: [],
 				sets: [
 					{
 						id: 1,
@@ -93,7 +93,7 @@ export const DECKS_DATA: DeckType[] = [
 				id: 2,
 				title: "Programming Concepts",
 				description: "Core programming concepts in computer science.",
-				children: [],
+				childrens: [],
 				sets: [
 					{
 						id: 1,
@@ -174,7 +174,7 @@ export const DECKS_DATA: DeckType[] = [
 		id: 3,
 		title: "Javascript",
 		description: "This is related to Javascript programming.",
-		children: [],
+		childrens: [],
 		sets: [
 			{
 				id: 1,

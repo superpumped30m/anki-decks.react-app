@@ -8,12 +8,21 @@ export const deckSlice = createSlice({
 	name: "decks",
 	initialState: initialState,
 	reducers: {
-		insert: (state) => {
-			console.log("state", state);
+		toggleDeckExpand: (state, action) => {
+			const toggleExpand = (decks: DeckType[], id: number) => {
+				decks.forEach((deck) => {
+					if (deck.id === id) {
+						deck.isExpanded = !deck.isExpanded;
+					} else if (deck.childrens) {
+						toggleExpand(deck.childrens, id);
+					}
+				});
+			};
+			toggleExpand(state, action.payload);
 		},
 	},
 });
 
-export const { insert } = deckSlice.actions;
+export const { toggleDeckExpand } = deckSlice.actions;
 export const getDecksCount = (state: RootState) => state.decks.length;
 export default deckSlice.reducer;
