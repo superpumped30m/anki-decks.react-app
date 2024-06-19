@@ -1,12 +1,11 @@
 import { DeckType } from "@/data";
 import { View } from "../Themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { LayoutAnimation, StyleSheet, Text } from "react-native";
+import { LayoutAnimation, Pressable, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppDispatch } from "@/store/hooks";
 import { toggleDeckExpand } from "@/store/deckSlice";
-
-type ExpandableDeckViewProps = {};
+import { router } from "expo-router";
 
 const ExpandableDeckView = ({
 	id,
@@ -17,26 +16,53 @@ const ExpandableDeckView = ({
 }: DeckType) => {
 	const dispatch = useAppDispatch();
 
+	// const handlePress = () => {
+	// 	LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+	// 	dispatch(toggleDeckExpand(id));
+	// };
+	const hasChildren = childrens && childrens.length > 0;
+
 	const handlePress = () => {
+		if (sets.length > 0) {
+			// navigation.navigate("StudyScreen", { deckId: id });
+			// router.push("/(decks)/study");
+			console.log("navigated to study");
+		} else {
+			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+			dispatch(toggleDeckExpand(id));
+		}
+	};
+
+	const handleChevronPress = () => {
 		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 		dispatch(toggleDeckExpand(id));
 	};
 
 	return (
 		<View>
-			<TouchableOpacity style={styles.item} onPress={handlePress}>
-				{isExpanded ? (
-					<Ionicons name="chevron-down-outline" size={20} color={"black"} />
-				) : (
-					<Ionicons name="chevron-forward-outline" size={20} color={"black"} />
+			<TouchableOpacity style={styles.item}>
+				{hasChildren && (
+					<TouchableOpacity onPress={handleChevronPress}>
+						{isExpanded ? (
+							<Ionicons name="chevron-down-outline" size={20} color={"black"} />
+						) : (
+							<Ionicons
+								name="chevron-forward-outline"
+								size={20}
+								color={"black"}
+							/>
+						)}
+					</TouchableOpacity>
 				)}
-				<Text style={styles.itemText}>{title}</Text>
+				<Pressable onPress={handlePress}>
+					<Text style={styles.itemText}>{title}</Text>
+				</Pressable>
 			</TouchableOpacity>
 
 			<View style={styles.deckSeparator} />
 
-			{isExpanded && (
-				<View>
+			{isExpanded && hasChildren && (
+				<View style={{ paddingLeft: 10 }}>
 					{childrens.map((child, idx) => (
 						<ExpandableDeckView {...child} key={idx} />
 					))}

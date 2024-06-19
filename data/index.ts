@@ -47,10 +47,28 @@ export const DECKS_DATA: DeckType[] = [
 		description: "This is related to computer science.",
 		childrens: [
 			{
-				id: 1,
+				id: 1001,
 				title: "Data Structures & Algorithms",
 				description: "This is related to computer science.",
-				childrens: [],
+				childrens: [
+					{
+						id: 5321,
+						title: "Javascript",
+						description: "This is related to Javascript programming.",
+						childrens: [],
+						sets: [
+							{
+								id: 1,
+								question: "What is a variable?",
+								answer:
+									"A variable is a container which holds reference to the memory address where we have stored our data.",
+								image: "https://avatars.githubusercontent.com/u/71868299?v=4",
+								isFavorite: true,
+							},
+						],
+						isExpanded: false,
+					},
+				],
 				sets: [
 					{
 						id: 1,
@@ -90,10 +108,36 @@ export const DECKS_DATA: DeckType[] = [
 				isExpanded: false,
 			},
 			{
-				id: 2,
+				id: 1002,
 				title: "Programming Concepts",
 				description: "Core programming concepts in computer science.",
-				childrens: [],
+				childrens: [
+					{
+						id: 2001,
+						title: "React Native",
+						description:
+							"This is a javascript library used to build hybrid mobile apps.",
+						childrens: [],
+						sets: [
+							{
+								id: 1,
+								question: "What is computer science.",
+								answer: "Computer science is a field of computer studies.",
+								image: "https://avatars.githubusercontent.com/u/71868299?v=4",
+								isFavorite: true,
+							},
+							{
+								id: 2,
+								question: "Explain the needs of an operating system",
+								answer:
+									"An operating system is needed  as it provides the user with a platform  to interact with the hardware.",
+								image: "https://avatars.githubusercontent.com/u/71868299?v=4",
+								isFavorite: true,
+							},
+						],
+						isExpanded: false,
+					},
+				],
 				sets: [
 					{
 						id: 1,
