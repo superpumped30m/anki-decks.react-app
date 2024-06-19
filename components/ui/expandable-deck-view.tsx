@@ -5,7 +5,6 @@ import { LayoutAnimation, Pressable, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppDispatch } from "@/store/hooks";
 import { toggleDeckExpand } from "@/store/deckSlice";
-import { router } from "expo-router";
 
 const ExpandableDeckView = ({
 	id,
@@ -15,11 +14,6 @@ const ExpandableDeckView = ({
 	childrens,
 }: DeckType) => {
 	const dispatch = useAppDispatch();
-
-	// const handlePress = () => {
-	// 	LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-	// 	dispatch(toggleDeckExpand(id));
-	// };
 	const hasChildren = childrens && childrens.length > 0;
 
 	const handlePress = () => {
@@ -40,9 +34,14 @@ const ExpandableDeckView = ({
 
 	return (
 		<View>
-			<TouchableOpacity style={styles.item}>
-				{hasChildren && (
-					<TouchableOpacity onPress={handleChevronPress}>
+			<TouchableOpacity style={[styles.item, { height: 60 }]}>
+				{hasChildren ? (
+					<TouchableOpacity
+						style={{
+							paddingHorizontal: 10,
+						}}
+						onPress={handleChevronPress}
+					>
 						{isExpanded ? (
 							<Ionicons name="chevron-down-outline" size={20} color={"black"} />
 						) : (
@@ -53,8 +52,15 @@ const ExpandableDeckView = ({
 							/>
 						)}
 					</TouchableOpacity>
+				) : (
+					<Ionicons name="add-outline" size={20} color={"black"} />
 				)}
-				<Pressable onPress={handlePress}>
+				<Pressable
+					style={{
+						paddingVertical: 20,
+					}}
+					onPress={handlePress}
+				>
 					<Text style={styles.itemText}>{title}</Text>
 				</Pressable>
 			</TouchableOpacity>
@@ -62,7 +68,7 @@ const ExpandableDeckView = ({
 			<View style={styles.deckSeparator} />
 
 			{isExpanded && hasChildren && (
-				<View style={{ paddingLeft: 10 }}>
+				<View style={{ paddingLeft: 15 }}>
 					{childrens.map((child, idx) => (
 						<ExpandableDeckView {...child} key={idx} />
 					))}
@@ -77,11 +83,11 @@ export default ExpandableDeckView;
 const styles = StyleSheet.create({
 	item: {
 		backgroundColor: "white",
-		padding: 20,
+		paddingHorizontal: 10,
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
-		gap: 10,
+		gap: 5,
 	},
 	itemText: {
 		fontSize: 16,
