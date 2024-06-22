@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
 	deckModalVisible: false,
@@ -9,8 +9,8 @@ export const uiSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 		toggleDeckModalVisibility: (state) => {
-			state.deckModalVisible = !state.deckModalVisible;
-		},
+            state.deckModalVisible = !state.deckModalVisible;
+        },
 	},
 });
 

@@ -1,40 +1,49 @@
-import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { toggleDeckModalVisibility } from "@/store/uiSlice";
+import React from "react";
+import {
+	Alert,
+	StyleSheet,
+	Text,
+	Pressable,
+	View,
+	useWindowDimensions,
+} from "react-native";
+import Modal from "react-native-modal";
 
-interface Props {
-	modalVisible: boolean;
-	setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const DeckModal = ({ modalVisible, setModalVisible }: Props) => {
+const DeckModal = ({ children }: { children: React.ReactNode }) => {
+	const { deckModalVisible } = useAppSelector((state) => state.ui);
+	const dispatch = useAppDispatch();
+	const { height, width } = useWindowDimensions();
 	return (
-		<View style={styles.centeredView}>
+		<View
+			style={{
+				// width: "90%",
+				// height: "60%",
+				// borderRadius: 25,
+				// backgroundColor: "green",
+				backgroundColor: "green",
+				// width: "auto",
+				// height:"auto",
+				flex: 1,
+				justifyContent: "center",
+				alignItems: "center",
+			}}
+		>
 			<Modal
-				animationType="slide"
-				transparent={true}
-				visible={modalVisible}
-				onRequestClose={() => {
-					Alert.alert("Modal has been closed.");
-					setModalVisible(!modalVisible);
-				}}
+				animationIn={"slideInUp"}
+				avoidKeyboard
+				coverScreen
+				// hasBackdrop={false}
+				isVisible={deckModalVisible}
+				// backdropOpacity={0.7}
+				// deviceHeight={height}
+				// deviceWidth={width}
+				backdropColor="white"
+
 			>
-				<View style={styles.centeredView}>
-					<View style={styles.modalView}>
-						<Text style={styles.modalText}>Hello World!</Text>
-						<Pressable
-							style={[styles.button, styles.buttonClose]}
-							onPress={() => setModalVisible(!modalVisible)}
-						>
-							<Text style={styles.textStyle}>Hide Modal</Text>
-						</Pressable>
-					</View>
-				</View>
+				{children}
 			</Modal>
-			<Pressable
-				style={[styles.button, styles.buttonOpen]}
-				onPress={() => setModalVisible(true)}
-			>
-				<Text style={styles.textStyle}>Show Modal</Text>
-			</Pressable>
 		</View>
 	);
 };
