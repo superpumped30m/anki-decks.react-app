@@ -45,7 +45,9 @@ export default function RootLayout() {
 						drawerLabel: "Deck Card",
 						title: "Create Deck",
 					}}
+                    
 				/>
+				
 			</Drawer>
 		</GestureHandlerRootView>
 	);

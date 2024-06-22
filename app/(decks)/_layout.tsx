@@ -24,9 +24,15 @@ const _layout = () => {
 						},
 					}}
 				/>
-                {/* <Stack.Screen name="study" options={{
+				{/* <Stack.Screen name="study" options={{
                     
                 }} /> */}
+				<Stack.Screen
+					options={{
+						presentation: "containedModal",
+					}}
+					name="modal"
+				/>
 			</Stack>
 		</GestureHandlerRootView>
 	);

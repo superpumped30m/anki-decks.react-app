@@ -1,42 +1,12 @@
+import { useAppDispatch } from "@/store/hooks";
+import { toggleDeckModalVisibility } from "@/store/uiSlice";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 import { FloatingMenu } from "react-native-floating-action-menu";
 import { ItemConfig } from "react-native-floating-action-menu/dist/src/types";
-import DeckModalForm from "./deck-modal-form";
 
 type ItemType = ItemConfig & { icon: string };
-
-const items: ItemType[] = [
-	{
-		label: "Add",
-		onPress: (item, index) => {
-			router.push("/(decks)/create");
-		},
-		icon: "add-outline",
-	},
-	{
-		label: "Add Deck",
-		onPress: (item, index) => {
-			router.push("/(root)/modal");
-		},
-		icon: "create-outline",
-	},
-	{
-		label: "Create Filtered Deck",
-		onPress: (item, index) => {
-			router.push("/create-filtered-deck");
-		},
-		icon: "filter-sharp",
-	},
-	{
-		label: "View Card",
-		onPress: (item, index) => {
-			router.push("/(decks)");
-		},
-		icon: "caret-down-circle-outline",
-	},
-];
 
 const renderItemIcon = (item: any, index: any, menuState: any) => {
 	const { itemsDown } = menuState;
@@ -48,10 +18,39 @@ const renderItemIcon = (item: any, index: any, menuState: any) => {
 
 export default () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [visible, setVisible] = useState<boolean>(false);
+	const dispatch = useAppDispatch();
+	const items: ItemType[] = [
+		{
+			label: "Add",
+			onPress: (item, index) => {
+				router.push("/(decks)/create");
+			},
+			icon: "add-outline",
+		},
+		{
+			label: "Add Deck",
+			onPress: (item, index) => {
+				dispatch(toggleDeckModalVisibility());
+			},
+			icon: "create-outline",
+		},
+		{
+			label: "Create Filtered Deck",
+			onPress: (item, index) => {
+				router.push("/create-filtered-deck");
+			},
+			icon: "filter-sharp",
+		},
+		{
+			label: "View Card",
+			onPress: (item, index) => {
+				router.push("/(decks)");
+			},
+			icon: "caret-down-circle-outline",
+		},
+	];
 	return (
 		<>
-			<DeckModalForm visible={visible} setVisible={setVisible} />
 			<FloatingMenu
 				position="bottom-right"
 				openEase={() => {}}
