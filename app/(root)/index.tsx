@@ -9,6 +9,7 @@ export default function IndexScreen() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<DecksList />
+			<Link href={"(ui)"}>Home</Link>
 			<Link href={"(ui)/new.deck.screen"}>New deck</Link>
 			<FloatingMenu />
 		</SafeAreaView>
