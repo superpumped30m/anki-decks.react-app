@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React from "react";
 import {
 	View,
@@ -17,7 +18,7 @@ const NewDeckScreen = () => {
 					<Text style={styles.headerButton}>CLOSE</Text>
 				</TouchableOpacity>
 				<Text style={styles.headerTitle}>New Deck</Text>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={() => router.push("/generate.cards.screen")}>
 					<Text style={styles.headerButton}>SAVE</Text>
 				</TouchableOpacity>
 			</View>
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: "semibold",
 		marginBottom: 20,
-        textAlign:"center"
+		textAlign: "center",
 	},
 	cardPreview: {
 		flexDirection: "row",
