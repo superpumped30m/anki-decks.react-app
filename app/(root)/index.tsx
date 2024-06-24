@@ -3,11 +3,13 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FloatingMenu from "@/components/ui/floating-menu";
 import DecksList from "@/components/ui/decks-list";
+import { Link } from "expo-router";
 
 export default function IndexScreen() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<DecksList />
+			<Link href={"(ui)/new.deck.screen"}>New deck</Link>
 			<FloatingMenu />
 		</SafeAreaView>
 	);
