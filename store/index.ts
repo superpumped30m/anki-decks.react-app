@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import deckSlice from "./deckSlice";
 import setSlice from "./setSlice";
-import uiSlice from "./uiSlice";
+import appReducer from "./app.reducer";
 // ...
 
 export const store = configureStore({
 	reducer: {
 		decks: deckSlice,
 		sets: setSlice,
-        ui: uiSlice
+        app: appReducer
 	},
 });
 

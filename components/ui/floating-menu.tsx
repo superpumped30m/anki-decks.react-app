@@ -8,6 +8,37 @@ import { ItemConfig } from "react-native-floating-action-menu/dist/src/types";
 
 type ItemType = ItemConfig & { icon: string };
 
+const items: ItemType[] = [
+	{
+		label: "Add",
+		onPress: (item, index) => {
+			router.push("/(decks)/create");
+		},
+		icon: "add-outline",
+	},
+	{
+		label: "Add Deck",
+		onPress: (item, index) => {
+			router.push("/(decks)/new-deck");
+		},
+		icon: "create-outline",
+	},
+	{
+		label: "Create Filtered Deck",
+		onPress: (item, index) => {
+			router.push("/create-filtered-deck");
+		},
+		icon: "filter-sharp",
+	},
+	{
+		label: "View Card",
+		onPress: (item, index) => {
+			router.push("/(decks)");
+		},
+		icon: "caret-down-circle-outline",
+	},
+];
+
 const renderItemIcon = (item: any, index: any, menuState: any) => {
 	const { itemsDown } = menuState;
 	const isItemPressed = itemsDown[index];
