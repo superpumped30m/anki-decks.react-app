@@ -1,0 +1,61 @@
+// schema.prisma
+
+// Model representing a Note
+model Note {
+    id          String  @id @unique @default(uuid())
+    GUID        String
+    MID         Int
+    ALLOW_EMPTY String?
+    MOD         Int
+    USN         Int
+    TAGS        String
+    FLDS        String
+    SFLD        Int?
+    CSUM        Int?
+    FLAGS       Int?
+    DATA        Int?
+
+    // Relation to cards
+    cards Card[]
+}
+
+// Model representing a Card
+model Card {
+    NOTE_ID         Int     @map(name: "note_id")
+    CARD_ORD        Int     @map(name: "card_ord")
+    CARD_NAME       String  @map(name: "card_name")
+    DECK_ID         Int     @map(name: "deck_id")
+    QUESTION        String  @map(name: "question")
+    ANSWER          String  @map(name: "answer")
+    QUESTION_SIMPLE String? @map(name: "question_simple")
+    ANSWER_SIMPLE   String? @map(name: "answer_simple")
+    ANSWER_PURE     String? @map(name: "answer_pure")
+
+    // Relation to notes
+    // note           Note     @relation(fields: [NOTE_ID], references: [_id])
+    Note       Note?        @relation(fields: [noteId], references: [id])
+    noteId     String?
+    ReviewInfo ReviewInfo[]
+
+    // Index to enforce uniqueness of NOTE_ID and CARD_ORD combination
+    @@id([NOTE_ID, CARD_ORD])
+}
+
+// Model representing ReviewInfo
+model ReviewInfo {
+    NOTE_ID           Int      @map(name: "note_id")
+    CARD_ORD          Int      @map(name: "card_ord")
+    BUTTON_COUNT      Int      @map(name: "button_count")
+    // NEXT_REVIEW_TIMES Int[]    @map(name: "next_review_times")
+    // MEDIA_FILES       String[] @map(name: "media_files")
+    EASE              Int?     @map(name: "ease")
+    TIME_TAKEN        Int?     @map(name: "time_taken")
+    BURY              Int?     @map(name: "bury")
+    SUSPEND           Int?     @map(name: "suspend")
+
+    // Relation to cards
+    card Card @relation(fields: [NOTE_ID, CARD_ORD], references: [NOTE_ID, CARD_ORD])
+
+    // Index to enforce uniqueness of NOTE_ID and CARD_ORD combination
+    @@id([NOTE_ID, CARD_ORD])
+}

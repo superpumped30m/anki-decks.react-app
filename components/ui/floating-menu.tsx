@@ -18,7 +18,7 @@ const items: ItemType[] = [
 	{
 		label: "Add Deck",
 		onPress: (item, index) => {
-			router.push("/(root)/modal");
+			router.push("/(decks)/new-deck");
 		},
 		icon: "create-outline",
 	},
