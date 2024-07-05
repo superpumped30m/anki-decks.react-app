@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "expo-router";
 import dummyNotes, {
-    db,
+	db,
 	fetchAllNotes,
 	insertNote,
 	setupDatabase,

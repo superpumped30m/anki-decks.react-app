@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React from "react";
 import {
 	View,
@@ -17,7 +18,7 @@ const NewDeckScreen = () => {
 					<Text style={styles.headerButton}>CLOSE</Text>
 				</TouchableOpacity>
 				<Text style={styles.headerTitle}>New Deck</Text>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={() => router.push("/generate.cards.screen")}>
 					<Text style={styles.headerButton}>SAVE</Text>
 				</TouchableOpacity>
 			</View>
@@ -30,7 +31,121 @@ const NewDeckScreen = () => {
 			</View>
 
 			<View style={styles.cardTypeContainer}>
-				<Text style={styles.cardTypeTitle}>Standard</Text>
+				<Text style={styles.cardTypeTitle}>Rich</Text>
+				<View style={styles.cardPreview}>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>FRONT SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+					</View>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>BACK SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+						<Text style={styles.cardText}>• ABC</Text>
+						<Text style={styles.cardText}>• 123</Text>
+					</View>
+				</View>
+				<Text style={styles.cardDescription}>
+					For cards with rich formatting, such as inline images, lists, and text
+					styling.
+				</Text>
+			</View>
+			<View style={styles.cardTypeContainer}>
+				<Text style={styles.cardTypeTitle}>Simple</Text>
+				<View style={styles.cardPreview}>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>FRONT SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+					</View>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>BACK SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+						<Text style={styles.cardText}>• ABC</Text>
+						<Text style={styles.cardText}>• 123</Text>
+					</View>
+				</View>
+				<Text style={styles.cardDescription}>
+					For cards with rich formatting, such as inline images, lists, and text
+					styling.
+				</Text>
+			</View>
+			<View style={styles.cardTypeContainer}>
+				<Text style={styles.cardTypeTitle}>Image</Text>
+				<View style={styles.cardPreview}>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>FRONT SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+					</View>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>BACK SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+						<Text style={styles.cardText}>• ABC</Text>
+						<Text style={styles.cardText}>• 123</Text>
+					</View>
+				</View>
+				<Text style={styles.cardDescription}>
+					For cards with rich formatting, such as inline images, lists, and text
+					styling.
+				</Text>
+			</View>
+			<View style={styles.cardTypeContainer}>
+				<Text style={styles.cardTypeTitle}>Audio</Text>
+				<View style={styles.cardPreview}>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>FRONT SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+					</View>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>BACK SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+						<Text style={styles.cardText}>• ABC</Text>
+						<Text style={styles.cardText}>• 123</Text>
+					</View>
+				</View>
+				<Text style={styles.cardDescription}>
+					For cards with rich formatting, such as inline images, lists, and text
+					styling.
+				</Text>
+			</View>
+			<View style={styles.cardTypeContainer}>
+				<Text style={styles.cardTypeTitle}>Enhanced</Text>
+				<View style={styles.cardPreview}>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>FRONT SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+					</View>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>BACK SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+						<Text style={styles.cardText}>• ABC</Text>
+						<Text style={styles.cardText}>• 123</Text>
+					</View>
+				</View>
+				<Text style={styles.cardDescription}>
+					For cards with rich formatting, such as inline images, lists, and text
+					styling.
+				</Text>
+			</View>
+			<View style={styles.cardTypeContainer}>
+				<Text style={styles.cardTypeTitle}>Speciality Language</Text>
+				<View style={styles.cardPreview}>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>FRONT SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+					</View>
+					<View style={styles.card}>
+						<Text style={styles.cardText}>BACK SIDE</Text>
+						<Text style={styles.cardText}>Main points</Text>
+						<Text style={styles.cardText}>• ABC</Text>
+						<Text style={styles.cardText}>• 123</Text>
+					</View>
+				</View>
+				<Text style={styles.cardDescription}>
+					For cards with rich formatting, such as inline images, lists, and text
+					styling.
+				</Text>
+			</View>
+			<View style={styles.cardTypeContainer}>
+				<Text style={styles.cardTypeTitle}>Math & Programming</Text>
 				<View style={styles.cardPreview}>
 					<View style={styles.card}>
 						<Text style={styles.cardText}>FRONT SIDE</Text>
@@ -96,8 +211,9 @@ const styles = StyleSheet.create({
 	},
 	cardTypeTitle: {
 		fontSize: 18,
-		fontWeight: "bold",
-		marginBottom: 16,
+		fontWeight: "semibold",
+		marginBottom: 20,
+		textAlign: "center",
 	},
 	cardPreview: {
 		flexDirection: "row",
