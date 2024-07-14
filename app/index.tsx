@@ -6,6 +6,6 @@ import initDatabase from "@/db/init";
 
 export default () => {
 	const db = useSQLiteContext();
-	initDatabase(db);
+	// initDatabase(db);
 	return <Redirect href="(root)" />;
 };

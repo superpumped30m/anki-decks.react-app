@@ -27,6 +27,24 @@ export const importDatabaseFromSchema = async () => {
 
 export const dbSchemaStatement = `
 PRAGMA journal_mode = WAL;
+CREATE TABLE decks (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    newToday TEXT NOT NULL,
+    revToday TEXT NOT NULL,
+    lrnToday TEXT NOT NULL,
+    timeToday TEXT NOT NULL,
+    conf INTEGER NOT NULL,
+    usn INTEGER NOT NULL,
+    desc TEXT NOT NULL,
+    dyn INTEGER NOT NULL,
+    collapsed INTEGER NOT NULL,
+    extendNew INTEGER NOT NULL,
+    extendRev INTEGER NOT NULL
+  );
+  CREATE INDEX ix_decks_usn ON decks (usn);
+  CREATE INDEX ix_decks_conf ON decks (conf);
+  CREATE INDEX ix_decks_dyn ON decks (dyn);
 CREATE TABLE IF NOT EXISTS col (
   id INTEGER PRIMARY KEY,
   crt INTEGER NOT NULL,

@@ -24,6 +24,17 @@ const _layout = () => {
 						},
 					}}
 				/>
+                <Stack.Screen
+					name="new-deck"
+					options={{
+						headerShown: true,
+						headerBackVisible: true,
+						headerTitle: "Add Set",
+						headerRight: ({ tintColor }) => {
+							return <Ionicons name="ellipsis-vertical" size={20} />;
+						},
+					}}
+				/>
 				{/* <Stack.Screen name="study" options={{
                     
                 }} /> */}

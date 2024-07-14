@@ -1,5 +1,5 @@
 import { Button, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FloatingMenu from "@/components/ui/floating-menu";
 import DecksList from "@/components/ui/decks-list";
@@ -7,8 +7,17 @@ import { Link, router } from "expo-router";
 import ImportDeck from "@/components/ImportDeck";
 import ExportCollection from "@/components/ExportCollection";
 import { Text } from "@/components/Themed";
+import { useSQLiteContext } from "expo-sqlite";
 
 export default function IndexScreen() {
+	const db = useSQLiteContext();
+	useEffect(() => {
+		const getNotes = async () => {
+			const notes = await db.getAllAsync("select * from decks");
+			console.log("notes", notes);
+		};
+		getNotes();
+	}, []);
 	return (
 		<SafeAreaView style={styles.container}>
 			<DecksList />
@@ -17,10 +26,6 @@ export default function IndexScreen() {
 				onPress={() => router.push("/(auth)/signin")}
 			/>
 			<Text onPress={() => router.push("/(auth)")}>Auth</Text>
-			{/* <ImportDeck />
-            <ExportCollection /> */}
-			{/* <Link href={"(ui)"}>Home</Link> */}
-			{/* <Link href={"(ui)/new.deck.screen"}>New deck</Link> */}
 			<FloatingMenu />
 		</SafeAreaView>
 	);

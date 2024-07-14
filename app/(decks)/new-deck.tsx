@@ -3,68 +3,105 @@ import {
 	Text,
 	View,
 	TouchableOpacity,
-	Switch,
 	ToastAndroid,
+	Switch,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { defaultStyleSheet } from "@/constants/Styles";
 import { TextInput } from "react-native-gesture-handler";
-import { db } from "@/services/expo-sqlite";
+import { Ionicons } from "@expo/vector-icons";
+import { Dropdown } from "react-native-element-dropdown";
+import { defaultStyleSheet } from "@/constants/Styles";
+import { useSQLiteContext } from "expo-sqlite";
 
-type InformationType = {
+type DeckInformationType = {
 	name: string;
-	description: string;
-	favorite: boolean;
+	newToday: [number, number];
+	revToday: [number, number];
+	lrnToday: [number, number];
+	timeToday: [number, number];
+	conf: number;
+	usn: number;
+	desc: string;
+	dyn: number;
+	collapsed: boolean;
+	extendNew: number;
+	extendRev: number;
 };
-export default function NewDeckScreen() {
-	const [information, setInformation] = useState<InformationType>({
+
+export default function CreateDeckScreen() {
+	const db = useSQLiteContext();
+	const [deckInformation, setDeckInformation] = useState<DeckInformationType>({
 		name: "",
-		description: "",
-		favorite: false,
+		newToday: [0, 0],
+		revToday: [0, 0],
+		lrnToday: [0, 0],
+		timeToday: [0, 0],
+		conf: 1,
+		usn: 0,
+		desc: "",
+		dyn: 0,
+		collapsed: false,
+		extendNew: 10,
+		extendRev: 50,
 	});
 
+	const [isFocus, setIsFocus] = useState<boolean>(false);
+
 	const onCreateDeck = async () => {
-		if (!information.name) {
+		if (!deckInformation.name || !deckInformation.desc) {
 			showValidationToast();
 			return;
 		}
-		// Store to SQLite
 
 		try {
-			const result = await db.runAsync(
-				"INSERT INTO decks (name, description, favorite) VALUES (?, ?, ?)",
-				[information.name, information.description, information.favorite]
-			);
-			console.log("Inserted Deck:", result);
-			// result.lastInsertRowId; // Return the ID of the inserted note
-		} catch (error) {
-			console.error("Failed to insert note:", error);
-			// return null;
-		}
+			await db.withTransactionAsync(async () => {
+				db.runAsync(
+					"INSERT INTO decks (name, newToday, revToday, lrnToday, timeToday, conf, usn, desc, dyn, collapsed, extendNew, extendRev) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+					[
+						deckInformation.name,
+						JSON.stringify(deckInformation.newToday),
+						JSON.stringify(deckInformation.revToday),
+						JSON.stringify(deckInformation.lrnToday),
+						JSON.stringify(deckInformation.timeToday),
+						deckInformation.conf,
+						deckInformation.usn,
+						deckInformation.desc,
+						deckInformation.dyn,
+						deckInformation.collapsed ? 1 : 0,
+						deckInformation.extendNew,
+						deckInformation.extendRev,
+					]
+				);
+			});
 
-		try {
-			const allNotes = await db.getAllAsync("SELECT * FROM decks");
-			console.log("All notes:", allNotes);
-			return allNotes;
+			showSuccessToast();
+			setDeckInformation({
+				name: "",
+				newToday: [0, 0],
+				revToday: [0, 0],
+				lrnToday: [0, 0],
+				timeToday: [0, 0],
+				conf: 1,
+				usn: 0,
+				desc: "",
+				dyn: 0,
+				collapsed: false,
+				extendNew: 10,
+				extendRev: 50,
+			});
 		} catch (error) {
-			console.error("Failed to fetch notes:", error);
+			console.error("Error creating deck:", error);
 		}
-
-		showSuccessToast();
-		setInformation({
-			name: "",
-			description: "",
-			favorite: false,
-		});
 	};
 
 	const showValidationToast = () => {
 		ToastAndroid.show("Please fill required fields", ToastAndroid.SHORT);
 	};
 	const showSuccessToast = () => {
-		ToastAndroid.show("Set created Successfully", ToastAndroid.SHORT);
+		ToastAndroid.show("Deck created Successfully", ToastAndroid.SHORT);
 	};
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<View
@@ -76,19 +113,55 @@ export default function NewDeckScreen() {
 				<TextInput
 					style={defaultStyleSheet.input}
 					placeholder="Deck Name..."
-					value={information.name}
-					onChangeText={(text) => {
-						setInformation({ ...information, name: text });
-					}}
+					value={deckInformation.name}
+					onChangeText={(text) =>
+						setDeckInformation({ ...deckInformation, name: text })
+					}
 				/>
 				<TextInput
 					style={defaultStyleSheet.input}
-					placeholder="Deck Description..."
-					value={information.description}
-					onChangeText={(text) => {
-						setInformation({ ...information, description: text });
-					}}
+					placeholder="Description..."
+					value={deckInformation.desc}
+					onChangeText={(text) =>
+						setDeckInformation({ ...deckInformation, desc: text })
+					}
 				/>
+				<View style={dropdownStyles.container}>
+					<Dropdown
+						style={[
+							dropdownStyles.dropdown,
+							defaultStyleSheet.input,
+							isFocus && { borderColor: "blue" },
+						]}
+						placeholderStyle={dropdownStyles.placeholderStyle}
+						selectedTextStyle={dropdownStyles.selectedTextStyle}
+						inputSearchStyle={dropdownStyles.inputSearchStyle}
+						iconStyle={dropdownStyles.iconStyle}
+						data={[
+							{ label: "Dynamic", value: 1 },
+							{ label: "Regular", value: 0 },
+						]}
+						labelField="label"
+						valueField="value"
+						placeholder={!isFocus ? "Select Type" : "..."}
+						searchPlaceholder="Search..."
+						value={deckInformation.dyn.toString()}
+						onFocus={() => setIsFocus(true)}
+						onBlur={() => setIsFocus(false)}
+						onChange={(item) => {
+							setDeckInformation({ ...deckInformation, dyn: item.value });
+							setIsFocus(false);
+						}}
+						renderLeftIcon={() => (
+							<Ionicons
+								style={dropdownStyles.icon}
+								color={isFocus ? "blue" : "black"}
+								name="logo-dropbox"
+								size={20}
+							/>
+						)}
+					/>
+				</View>
 				<View
 					style={{
 						flexDirection: "row",
@@ -99,12 +172,30 @@ export default function NewDeckScreen() {
 					<Switch
 						ios_backgroundColor="#3e3e3e"
 						onValueChange={(value) =>
-							setInformation({ ...information, favorite: value })
+							setDeckInformation({ ...deckInformation, collapsed: value })
 						}
-						value={information.favorite}
+						value={deckInformation.collapsed}
 					/>
-					<Text style={{ marginLeft: 8 }}>add to favorites</Text>
+					<Text style={{ marginLeft: 8 }}>Collapsed</Text>
 				</View>
+				<TextInput
+					style={defaultStyleSheet.input}
+					placeholder="Extend New..."
+					keyboardType="numeric"
+					value={deckInformation.extendNew.toString()}
+					onChangeText={(text) =>
+						setDeckInformation({ ...deckInformation, extendNew: Number(text) })
+					}
+				/>
+				<TextInput
+					style={defaultStyleSheet.input}
+					placeholder="Extend Rev..."
+					keyboardType="numeric"
+					value={deckInformation.extendRev.toString()}
+					onChangeText={(text) =>
+						setDeckInformation({ ...deckInformation, extendRev: Number(text) })
+					}
+				/>
 			</View>
 			<View style={{ alignItems: "center" }}>
 				<TouchableOpacity

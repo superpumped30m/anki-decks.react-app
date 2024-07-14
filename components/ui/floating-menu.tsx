@@ -58,6 +58,13 @@ export default () => {
 			},
 			icon: "add-outline",
 		},
+        {
+			label: "Create Deck",
+			onPress: (item, index) => {
+				router.push("/(decks)/new-deck");
+			},
+			icon: "add-outline",
+		},
 		{
 			label: "Add Deck",
 			onPress: (item, index) => {
