@@ -8,6 +8,7 @@ import ImportDeck from "@/components/ImportDeck";
 import ExportCollection from "@/components/ExportCollection";
 import { Text } from "@/components/Themed";
 import { useSQLiteContext } from "expo-sqlite";
+import ListDecks from "@/components/ui/list-decks";
 
 export default function IndexScreen() {
 	const db = useSQLiteContext();
@@ -20,7 +21,8 @@ export default function IndexScreen() {
 	}, []);
 	return (
 		<SafeAreaView style={styles.container}>
-			<DecksList />
+			{/* <DecksList /> */}
+            <ListDecks />
 			<Button
 				title="Authenticate"
 				onPress={() => router.push("/(auth)/signin")}
