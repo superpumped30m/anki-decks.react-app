@@ -1,16 +1,26 @@
-import { StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FloatingMenu from "@/components/ui/floating-menu";
 import DecksList from "@/components/ui/decks-list";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import ImportDeck from "@/components/ImportDeck";
+import ExportCollection from "@/components/ExportCollection";
+import { Text } from "@/components/Themed";
 
 export default function IndexScreen() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<DecksList />
-			<Link href={"(ui)"}>Home</Link>
-			<Link href={"(ui)/new.deck.screen"}>New deck</Link>
+			<Button
+				title="Authenticate"
+				onPress={() => router.push("/(auth)/signin")}
+			/>
+			<Text onPress={() => router.push("/(auth)")}>Auth</Text>
+			{/* <ImportDeck />
+            <ExportCollection /> */}
+			{/* <Link href={"(ui)"}>Home</Link> */}
+			{/* <Link href={"(ui)/new.deck.screen"}>New deck</Link> */}
 			<FloatingMenu />
 		</SafeAreaView>
 	);

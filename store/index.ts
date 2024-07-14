@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import deckSlice from "./deckSlice";
 import setSlice from "./setSlice";
 import appReducer from "./app.reducer";
+import ankiReducer from "./ankiSlice";
 // ...
 
 export const store = configureStore({
 	reducer: {
 		decks: deckSlice,
 		sets: setSlice,
-        app: appReducer
+        app: appReducer,
+        anki: ankiReducer
 	},
 });
 

@@ -1,20 +1,11 @@
 import React from "react";
 import { Redirect } from "expo-router";
-import dummyNotes, {
-	db,
-	fetchAllNotes,
-	insertNote,
-	setupDatabase,
-} from "@/services/expo-sqlite";
-import { initTables } from "@/services/db";
+import { useSQLiteContext } from "expo-sqlite";
+import initDatabase from "@/db/init";
+// import {}
 
 export default () => {
-	initTables(db);
-	// setupDatabase().then((result) => {
-	// 	console.log("result", result);
-	// 	dummyNotes.map((note) => insertNote(note));
-	// 	fetchAllNotes();
-	// });
-
+	const db = useSQLiteContext();
+	initDatabase(db);
 	return <Redirect href="(root)" />;
 };

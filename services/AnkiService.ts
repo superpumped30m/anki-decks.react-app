@@ -1,136 +1,46 @@
-// AnkiService.ts
+// src/services/ankiService.ts
 
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-// Constants based on the AnkiDroid FlashCardsContract
-const AUTHORITY = 'com.ichi2.anki.flashcards';
-const BASE_URL = `content://${AUTHORITY}`;
+const BASE_URL = 'http://localhost:4000'; 
 
-interface Note {
-  _id: number;
-  GUID: string;
-  MID: number;
-  ALLOW_EMPTY?: string;
-  MOD: number;
-  USN: number;
-  TAGS: string;
-  FLDS: string;
-  SFLD?: number;
-  CSUM?: number;
-  FLAGS?: number;
-  DATA?: number;
-}
+export const ankiService = {
+  importDeck: async (file: File) => {
+    const formData = new FormData();
+    formData.append('apkg', file);
+    const response = await axios.post(`${BASE_URL}/api/package/import`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
 
-interface Model {
-  _id: number;
-  NAME: string;
-  CSS?: string;
-  FIELD_NAMES: string;
-  NUM_CARDS?: number;
-  DECK_ID?: number;
-  SORT_FIELD_INDEX?: number;
-  TYPE?: number;
-  LATEX_POST?: string;
-  LATEX_PRE?: string;
-  NOTE_COUNT?: number;
-}
+  exportCollection: async () => {
+    const response = await axios.get(`${BASE_URL}/api/package/export`, {
+      responseType: 'blob',
+    });
+    return response.data;
+  },
 
-interface CardTemplate {
-  _id: number;
-  MODEL_ID: number;
-  ORD: number;
-  NAME: string;
-  QUESTION_FORMAT: string;
-  ANSWER_FORMAT: string;
-  BROWSER_QUESTION_FORMAT?: string;
-  BROWSER_ANSWER_FORMAT?: string;
-  CARD_COUNT?: number;
-}
+  getAllDecks: async () => {
+    const response = await axios.get(`${BASE_URL}/api/decks`);
+    console.log("response",response)
+    return response.data;
+  },
 
-class AnkiService {
-  private static instance: AnkiService;
-  private readonly baseUrl: string;
+  getDeckDetails: async (deckId: number) => {
+    const response = await axios.get(`${BASE_URL}/api/decks/${deckId}`);
+    return response.data;
+  },
 
-  private constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  getAllNotes: async () => {
+    const response = await axios.get(`${BASE_URL}/api/notes`);
+    return response.data;
+  },
+
+  getAllCards: async () => {
+    const response = await axios.get(`${BASE_URL}/api/cards`);
+    return response.data;
   }
-
-  public static getInstance(): AnkiService {
-    if (!AnkiService.instance) {
-      AnkiService.instance = new AnkiService(BASE_URL);
-    }
-    return AnkiService.instance;
-  }
-
-  // Fetch all notes
-  public async getAllNotes(): Promise<Note[]> {
-    try {
-      const response: AxiosResponse<Note[]> = await axios.get(`${this.baseUrl}/notes`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching notes:', error);
-      throw error;
-    }
-  }
-
-  // Fetch a specific note by ID
-  public async getNoteById(noteId: number): Promise<Note> {
-    try {
-      const response: AxiosResponse<Note> = await axios.get(`${this.baseUrl}/notes/${noteId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching note ${noteId}:`, error);
-      throw error;
-    }
-  }
-
-  // Fetch all models
-  public async getAllModels(): Promise<Model[]> {
-    try {
-      const response: AxiosResponse<Model[]> = await axios.get(`${this.baseUrl}/models`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching models:', error);
-      throw error;
-    }
-  }
-
-  // Fetch a specific model by ID
-  public async getModelById(modelId: number): Promise<Model> {
-    try {
-      const response: AxiosResponse<Model> = await axios.get(`${this.baseUrl}/models/${modelId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching model ${modelId}:`, error);
-      throw error;
-    }
-  }
-
-  // Fetch all card templates for a specific model
-  public async getAllCardTemplatesForModel(modelId: number): Promise<CardTemplate[]> {
-    try {
-      const response: AxiosResponse<CardTemplate[]> = await axios.get(
-        `${this.baseUrl}/models/${modelId}/templates`
-      );
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching card templates for model ${modelId}:`, error);
-      throw error;
-    }
-  }
-
-  // Fetch a specific card template by ID for a model
-  public async getCardTemplateById(modelId: number, templateId: number): Promise<CardTemplate> {
-    try {
-      const response: AxiosResponse<CardTemplate> = await axios.get(
-        `${this.baseUrl}/models/${modelId}/templates/${templateId}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching card template ${templateId} for model ${modelId}:`, error);
-      throw error;
-    }
-  }
-}
-
-export default AnkiService;
+};
